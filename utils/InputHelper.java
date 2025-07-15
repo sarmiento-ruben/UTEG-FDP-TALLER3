@@ -34,4 +34,25 @@ public class InputHelper{
             }
         }
     };
+
+    public static String getString(
+        String message,
+        boolean isOptional, 
+        String emptyErrorMessage
+    ){
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            if (!input.trim().isEmpty() || isOptional){
+                return input;
+            } else {
+                System.out.println(emptyErrorMessage != null ? emptyErrorMessage : "Input can't be empty");
+            }
+
+        }
+    };
+
+    public static String getString(String message, boolean isOptional){
+        return getString(message, isOptional, null);
+    }
 };
