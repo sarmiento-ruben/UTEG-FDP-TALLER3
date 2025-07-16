@@ -6,10 +6,10 @@ import java.util.ArrayList;
 class FoodStorage{
     private static final String file_path = "food_data.csv";
 
-    public static void saveFoods(List<Food> foodList){
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file_path, true))){
+    public static void saveFoods(List<Food> foodList, boolean append){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file_path, append))){
             for (Food food: foodList){
-                writer.write(food.toCSV());
+                writer.write(food.toString());
                 writer.newLine();
             }
         } catch (IOException e) {

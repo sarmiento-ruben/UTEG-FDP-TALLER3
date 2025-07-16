@@ -1,19 +1,21 @@
-package FoodManager;
-
-import utils.InputHelper;
+package Calculator;
 import java.util.Scanner;
+import utils.InputHelper;
 
-public class FoodManager{
-    public static final String OPTIONS = """
-    |==== Food Manager ====|
-    1. Add
-    2. Delete
-    3. Update
-    4. List
-    5. Back""";
+public class CalculatorHandler{
+
     public static void start(Scanner scanner){
         boolean isExecuting = true;
-        while (isExecuting) {
+
+        String OPTIONS = """
+        =====Calculator=====
+        1. Add food to list
+        2. Delete from list
+        3. Show list
+        4. Final results
+        5. Back""";
+
+        while (isExecuting){
             System.out.println(OPTIONS);
             int option = InputHelper.getInt(
                 "Enter an option: ",
@@ -24,21 +26,21 @@ public class FoodManager{
             );
             switch (option) {
                 case 1:
-                    FoodService.addFood(scanner);
+                    System.out.println("Hey1");
                     break;
                 case 2:
-                    FoodService.deleteFood(scanner);
+                    System.out.println("Hey2");
                     break;
                 case 3:
-                    FoodService.updateFood(scanner);
+                    System.out.println("Hey3");
                     break;
                 case 4:
-                    FoodService.listFood();
+                    System.out.println("Hey4");
                     break;
                 case 5:
                     isExecuting = false;
                     break;
-            };
-        };
-    };
-};
+            }
+        }
+    }
+}

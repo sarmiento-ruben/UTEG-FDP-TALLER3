@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import FoodManager.FoodManager;
 import utils.InputHelper;
+import Calculator.CalculatorHandler;
 
 public class Main { 
     public static final String OPTIONS = """
@@ -28,7 +29,7 @@ public class Main {
                         FoodManager.start(scanner);
                         break;
                     case 2:
-                        System.out.println("Calculate calories");
+                        CalculatorHandler.start(scanner);
                         break;
                     case 3:
                         isExecuting = false;

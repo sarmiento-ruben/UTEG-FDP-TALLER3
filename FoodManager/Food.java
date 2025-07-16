@@ -34,8 +34,11 @@ public class  Food{
     public void setDesc(String description) {this.description = description;}
     public void setCal(double calories) {this.calories = calories;}
 
-    public String toCSV(){
-        return id + "," + name + "," + description + "," + calories;
+    @Override
+    public String toString(){
+        String foodString = String.format("""
+        %s, %s, %s, %.2f""", id, name, (description.trim().isEmpty() ? "N/A" : description), calories);
+        return foodString;
     }
 
     public static Food fromCSV(String line){
@@ -47,14 +50,7 @@ public class  Food{
         return new Food(id, name, description, calories);
     }
 
-    public String toString(){
-        String foodString = String.format("""
-        Name: %s
-        Description: %s
-        Calories per 100gr: %.2f kcal""", name, (description.trim().isEmpty() ? "Not provided" : description), calories);
 
-        return foodString;
-    }
 
     public static int getLastId(){
         List<Food> foodList = FoodStorage.getFoods();
