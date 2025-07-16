@@ -35,6 +35,37 @@ public class InputHelper{
         }
     };
 
+    public static double getDouble(
+        String message, 
+        int min_range, 
+        int max_range, 
+        String emptyErrorMessage,
+        String formatErrorMessage
+    ){
+        while (true) {
+            System.out.print(message);
+            String option = scanner.nextLine();
+
+            if (!option.trim().isEmpty()){
+                try {
+                    double doubleOption = Double.parseDouble(option.trim());
+
+                    if (doubleOption < min_range || doubleOption > max_range){
+                        String outOfRangeErrorMessage = String.format("The number must be between %d and %d, not %.2f", min_range, max_range, doubleOption);
+                        System.out.println(outOfRangeErrorMessage);
+                        continue;
+                    }
+
+                    return doubleOption;
+                } catch (NumberFormatException e) {
+                    System.out.println(formatErrorMessage);
+                }
+            } else {
+                System.out.println(emptyErrorMessage);
+            }
+        }
+    };
+
     public static String getString(
         String message,
         boolean isOptional, 
