@@ -1,46 +1,32 @@
-package Calculator;
+package calculator;
 import java.util.Scanner;
 import utils.InputHelper;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+import utils.MenuHandler;
+import calculator.CalculatorService;
 
 public class CalculatorHandler{
 
-    public static void start(Scanner scanner){
-        boolean isExecuting = true;
-
-        String OPTIONS = """
+    private static final String OPTIONS = """
         =====Calculator=====
         1. Add food to list
         2. Delete from list
         3. Show list
-        4. Final results
-        5. Back""";
+        4. Back""";
 
-        while (isExecuting){
-            System.out.println(OPTIONS);
-            int option = InputHelper.getInt(
-                "Enter an option: ",
-                1,
-                5,
-                "Could not be empty",
-                "Please, enter a valid number"
-            );
-            switch (option) {
-                case 1:
-                    System.out.println("Hey1");
-                    break;
-                case 2:
-                    System.out.println("Hey2");
-                    break;
-                case 3:
-                    System.out.println("Hey3");
-                    break;
-                case 4:
-                    System.out.println("Hey4");
-                    break;
-                case 5:
-                    isExecuting = false;
-                    break;
-            }
-        }
+    public static void start(Scanner scanner){
+
+    Map<Integer, Consumer<Scanner>> consumersMap = new HashMap<>();
+
+    consumersMap.put(1, sc -> CalculatorService.addToList(sc)); // Add food to calculator list
+    consumersMap.put(2, sc -> CalculatorService.deleteFromList(sc)); // Delete food from calculator list
+    consumersMap.put(3, sc -> CalculatorService.showList()); // Show the current list and calories
+    consumersMap.put(4, _sc -> {}); // Exit the program
+
+    // Start showing menu        
+    MenuHandler.show(OPTIONS, 1, 4, consumersMap, scanner);
+
     }
 }

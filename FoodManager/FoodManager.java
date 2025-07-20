@@ -1,44 +1,36 @@
-package FoodManager;
+package foodmanager;
 
-import utils.InputHelper;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+import utils.InputHelper;
+import utils.MenuHandler;
 
 public class FoodManager{
-    public static final String OPTIONS = """
+    private static final String OPTIONS = """
     |==== Food Manager ====|
     1. Add
     2. Delete
     3. Update
     4. List
     5. Back""";
+
+    // Option loop
     public static void start(Scanner scanner){
-        boolean isExecuting = true;
-        while (isExecuting) {
-            System.out.println(OPTIONS);
-            int option = InputHelper.getInt(
-                "Enter an option: ",
-                1,
-                5,
-                "Could not be empty",
-                "Please, enter a valid number"
-            );
-            switch (option) {
-                case 1:
-                    FoodService.addFood(scanner);
-                    break;
-                case 2:
-                    FoodService.deleteFood(scanner);
-                    break;
-                case 3:
-                    FoodService.updateFood(scanner);
-                    break;
-                case 4:
-                    FoodService.listFood();
-                    break;
-                case 5:
-                    isExecuting = false;
-                    break;
-            };
-        };
-    };
-};
+
+    Map<Integer, Consumer<Scanner>> consumersMap = new HashMap<>();
+
+        
+    consumersMap.put(1, sc -> FoodService.addFood(sc)); // FoodManager (Add, Update and delete)
+    consumersMap.put(2, sc -> FoodService.deleteFood(sc)); // Calculate calories
+    consumersMap.put(3, sc -> FoodService.updateFood(sc)); // Exit the program
+    consumersMap.put(4, sc -> FoodService.listFood()); // Exit the program
+    consumersMap.put(5, _sc -> {}); // Exit the program
+
+    // Start showing menu        
+    MenuHandler.show(OPTIONS, 1, 5, consumersMap, scanner);
+        
+        
+    }
+}

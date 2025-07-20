@@ -1,40 +1,34 @@
+import utils.MenuHandler;
 import java.util.Scanner;
-import FoodManager.FoodManager;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+import foodmanager.FoodManager;
 import utils.InputHelper;
-import Calculator.CalculatorHandler;
+import calculator.CalculatorHandler;
 
 public class Main { 
-    public static final String OPTIONS = """
-    |==== Calories intake calculator ====|
-    1. Manage food
-    2. Calories calculator
-    3. Exit""";
-
-
-    static Scanner scanner = new Scanner(System.in);
     
+    // Scanner instance used throughout the program (Not in InputHelps)
+    private static final Scanner scanner = new Scanner(System.in);
+
+    // Options to be displayed
+    private static final String OPTIONS = """
+        |==== Calories intake calculator ====|
+        1. Manage food
+        2. Calories calculator
+        3. Exit""";
     public static void main(String[] args){
-        boolean isExecuting = true;
-        while (isExecuting) {
-                System.out.println(OPTIONS);
-                int option = InputHelper.getInt(
-                    "Enter an option: ",
-                    1,
-                    3,
-                    "Could not be empty",
-                    "Please, enter a valid number"
-                );
-                switch (option) {
-                    case 1:
-                        FoodManager.start(scanner);
-                        break;
-                    case 2:
-                        CalculatorHandler.start(scanner);
-                        break;
-                    case 3:
-                        isExecuting = false;
-                        break;
-                    };
-                }
+
+        // Consumers map
+        Map<Integer, Consumer<Scanner>> consumersMap = new HashMap<>();
+        
+        consumersMap.put(1, scanner -> FoodManager.start(scanner)); // FoodManager (Add, Update and delete)
+        consumersMap.put(2, scanner -> CalculatorHandler.start(scanner)); // Calculate calories
+        consumersMap.put(3, _scanner -> System.out.println("Bye!")); // Exit the program
+
+        // Start showing menu        
+        MenuHandler.show(OPTIONS, 1, 3, consumersMap, scanner);
+        
     }
 }
