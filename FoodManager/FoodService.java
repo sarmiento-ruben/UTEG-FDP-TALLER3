@@ -109,7 +109,7 @@ public class FoodService{
             nameGetString,
             true
             );
-            if (newName.equalsIgnoreCase(STRING_EXIT_CODE)) {return false;}
+            if (STRING_EXIT_CODE.equalsIgnoreCase(newName)) {return false;}
 
             String newDescription = InputHelper.getString(
                 descriptionGetString,

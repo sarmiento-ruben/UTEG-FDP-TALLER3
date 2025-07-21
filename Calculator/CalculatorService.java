@@ -107,7 +107,7 @@ public class CalculatorService{
                 "Id has to be a number"
                 );
             
-            if (id == DOUBLE_EXIT_CODE){
+            if (id == INT_EXIT_CODE){
                 return false;
             }
             
